@@ -17,7 +17,14 @@ import "./styles/main.css";
 
 
 function App() {
-  return (<CreatePost />
+  return (<BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/users" element={<Users />} />
+      <Route path="/users/:userId" element={<UserBlog />} />
+      <Route path="/users/:userId/posts/new" element={<CreatePost />} />
+    </Routes>
+  </BrowserRouter>
   )
 }
 
