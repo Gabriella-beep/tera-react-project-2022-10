@@ -1,6 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import logo from "../../images/logo.svg";
+import AppLoading from "../organisms/AppLoading";
 
 export default function Home() {
 
@@ -10,10 +11,15 @@ export default function Home() {
 
   const [currentUser, setCurrentUser]= React.useState("");
 
+  const [isLoading, setIsLoading]= React.useState(true);
+
   React.useEffect(() => {
     fetch ("https://63cf09718a780ae6e6710dbe.mockapi.io/users")
     .then((Response) => Response.json())
-    .then((data) => setUsers(data));
+    .then((data) => {
+      setUsers(data);
+    setIsLoading (false);
+  });
   }, []);
 
   const handleUserChange = (e) => setCurrentUser (e.target.value);
@@ -23,7 +29,8 @@ export default function Home() {
   const handleConfirmClick = () => navigate ('/users/${currentUsers}');
 
 
-  return (
+  return isLoading ? ( <AppLoading/>
+  ) : (
     <div className="home center">
       <div className="home__logo">
         <img src={logo} className="responsive" alt="" />
